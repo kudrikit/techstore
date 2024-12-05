@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FoodMart</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+
+    .header, footer {
+      width: 100%;
+      position: fixed;
+      left: 0;
+      background-color: #4CAF50;
+      color: white;
+      padding: 1rem 2rem;
+      z-index: 1000;
+    }
+
+    .header {
+      top: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    footer {
+      bottom: 0;
+      text-align: center;
+    }
+
+    .nav {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      transition: transform 0.3s ease;
+    }
+
+    .nav a:hover {
+      transform: scale(1.1);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 1.5rem;
+    }
+
+    @keyframes pulse {
+      from { transform: scale(1); }
+      to { transform: scale(1.1); }
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 120px auto 60px;
+      padding: 2rem;
+      background-color: rgba(255, 255, 255, 0.8);
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 4rem;
+      background-image: url('https://images.pexels.com/photos/1028424/pexels-photo-1028424.jpeg');
+      background-size: cover;
+      background-position: center;
+      padding: 4rem;
+      border-radius: 10px;
+      color: white;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      color: #4CAF50;
+    }
+
+    .hero p {
+      font-size: 1.4rem;
+      color: #e6ffe6;
+    }
+
+    .features {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 2rem;
+    }
+
+    .feature {
+      max-width: 300px;
+      margin: 0 1rem 2rem;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      text-align: center;
+    }
+
+    .feature h2 {
+      font-size: 2.2rem;
+      margin-bottom: 1rem;
+    }
+
+    .feature p {
+      font-size: 1.4rem;
+    }
+
+    .productInfo {
+      display: flex;
+      justify-content: space-around;
+      align-items: flex-start;
+      margin-top: 4rem;
+    }
+
+    .product {
+      width: 300px;
+      text-align: center;
+    }
+
+    .product img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      margin-bottom: 1rem;
+    }
+
+    .product h2 {
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .product p {
+      font-size: 1.4rem;
+    }
+  </style>
+</head>
+<body>
+
+<header class="header">
+  <h1>FoodMart</h1>
+  <nav class="nav">
+    <a href="/about">Главная</a>
+    <a href="/products">Товары</a>
+    <a href="/cart">Корзина</a>
+    <a href="/profile">Профиль</a>
+    <a href="/logout">Выйти</a>
+  </nav>
+</header>
+
+<div class="container">
+  <div class="hero">
+    <h1>Добро пожаловать в FoodMart</h1>
+    <p>Откройте для себя свежие и органические продукты с доставкой на дом.</p>
+  </div>
+
+  <div class="features">
+    <div class="feature">
+      <h2>Широкий ассортимент</h2>
+      <p>Выбирайте из широкого ассортимента свежих фруктов, овощей, молочных продуктов и многого другого.</p>
+    </div>
+    <div class="feature">
+      <h2>Гарантия качества</h2>
+      <p>Наша продукция поступает от надежных фермеров, что гарантирует лучшее качество для вас.</p>
+    </div>
+    <div class="feature">
+      <h2>Быстрая доставка</h2>
+      <p>Наслаждайтесь быстрой и надежной доставкой, доставляющей свежие продукты прямо к вашему порогу.</p>
+    </div>
+  </div>
+
+  <hr class="divider"/>
+
+  <div class="productInfo">
+    <div class="product">
+      <img src="https://images.pexels.com/photos/264537/pexels-photo-264537.jpeg" alt="Органические яблоки"/>
+      <h2>Органические яблоки</h2>
+      <p>Свежие и сочные органические яблоки, идеально подходят для здорового перекуса.</p>
+    </div>
+    <div class="product">
+      <img src="https://static.insales-cdn.com/r/9nf055qJddI/rs:fit:440:0:1/q:100/plain/images/products/1/1834/711182122/large_3639926864.jpg@jpg" alt="Фермерские яйца"/>
+      <h2>Фермерские яйца</h2>
+      <p>Свежие яйца от свободного выгула, богатые питательными веществами и вкусом.</p>
+    </div>
+    <div class="product">
+      <img src="https://images.pexels.com/photos/3497082/pexels-photo-3497082.jpeg" alt="Свежее молоко"/>
+      <h2>Свежее молоко</h2>
+      <p>Чистое, свежее молоко прямо от фермеров, доставленное вам домой.</p>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>&copy; 2024 FoodMart. Все права защищены.</p>
+</footer>
+
+</body>
+</html>

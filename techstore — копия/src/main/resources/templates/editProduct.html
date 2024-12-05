@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Изменить товар</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f4f4f4;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .header, footer {
+      width: 100%;
+      background-color: #4CAF50;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: fixed;
+      z-index: 1000;
+    }
+
+    .header {
+      top: 0;
+    }
+
+    footer {
+      bottom: 0;
+      text-align: center;
+    }
+
+    .header h2 {
+      margin: 0;
+      font-size: 1.8rem;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 120px;
+      color: #4CAF50;
+      margin-bottom: 30px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+      display: block;
+      font-size: 16px;
+      margin-bottom: 8px;
+      margin-top: 15px;
+      color: #333;
+    }
+
+    input[type="text"],
+    input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 10px;
+      width: 100%;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    a {
+      text-decoration: none;
+      color: #4CAF50;
+      font-size: 16px;
+      display: block;
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+<header class="header">
+  <h2>FoodMart</h2>
+</header>
+
+<h1>Изменение Товара</h1>
+
+<div class="container">
+  <form th:action="@{/updateProduct}" method="post">
+    <input type="hidden" name="id" th:value="${product.id}"/>
+
+    <label for="name">Название:</label>
+    <input type="text" name="name" th:value="${product.name}" required>
+
+    <label for="description">Описание:</label>
+    <input type="text" name="description" th:value="${product.description}" required>
+
+    <label for="price">Цена:</label>
+    <input type="number" step="0.01" name="price" th:value="${product.price}" required>
+
+    <label for="category">Категория:</label>
+    <input type="text" name="category" th:value="${product.category}" required>
+
+    <label for="imageUrl">URL изображения:</label>
+    <input type="text" name="imageUrl" th:value="${product.imageUrl}" required>
+
+    <button type="submit">Обновить</button>
+  </form>
+
+  <a href="/products">Вернуться на главную</a>
+</div>
+
+<footer>
+  <p>&copy; 2024 FoodMart. Все права защищены.</p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Оформление заказа</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f9;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      justify-content: center;
+      align-items: center;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 20px;
+      color: #4CAF50;
+      margin-bottom: 30px;
+    }
+
+    form {
+      max-width: 600px;
+      width: 100%;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .summary {
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .summary h2 {
+      color: #4CAF50;
+      margin-bottom: 10px;
+    }
+
+    .summary ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .summary ul li {
+      margin-bottom: 5px;
+      font-size: 16px;
+    }
+
+    .summary h3 {
+      font-size: 18px;
+      color: #4CAF50;
+      margin-top: 15px;
+    }
+
+    label {
+      display: block;
+      margin: 10px 0 5px;
+      color: #333;
+    }
+
+    input[type="text"],
+    input[type="email"] {
+      width: 100%;
+      padding: 10px;
+      margin: 5px 0 20px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      width: 100%;
+      transition: background-color 0.3s, transform 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #45a049;
+      transform: scale(1.05);
+    }
+
+    button:active {
+      transform: scale(0.98);
+    }
+  </style>
+</head>
+<body>
+
+<h1>Оформление заказа</h1>
+
+<form th:action="@{/order/submit}" method="post">
+  <div class="summary">
+    <h2>Ваш заказ</h2>
+    <ul>
+      <li th:each="item : ${items}">
+        <span th:text="${item.product.name}"></span> - <span th:text="${item.quantity}"></span> шт. - <span th:text="${item.product.price * item.quantity}"></span> тнг.
+      </li>
+    </ul>
+    <h3>Итого: <span th:text="${totalPrice}"></span> тнг</h3>
+  </div>
+
+  <label for="name">Имя:</label>
+  <input type="text" id="name" name="name" required>
+
+  <label for="email">Email:</label>
+  <input type="email" id="email" name="email" required>
+
+  <label for="address">Адрес доставки:</label>
+  <input type="text" id="address" name="address" required>
+
+  <button type="submit">Оформить заказ</button>
+</form>
+
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Добавить товар</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f4f4f4;
+    }
+
+    .header, footer {
+      width: 100%;
+      position: fixed;
+      left: 0;
+      background-color: #4CAF50;
+      color: white;
+      padding: 1rem 2rem;
+      z-index: 1000;
+    }
+
+    .header {
+      top: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    footer {
+      bottom: 0;
+      text-align: center;
+    }
+
+    .nav {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
+
+    .nav a:hover {
+      color: #d0f0d0;
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: 1.8rem;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 100px;
+      color: #4CAF50;
+    }
+
+    h2{
+      text-align: center;
+      margin-top: 5px;
+      color: #ffffff;
+    }
+
+    form {
+      max-width: 600px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    input[type="text"],
+    input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      font-size: 16px;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    a {
+      display: block;
+      text-align: center;
+      color: #007bff;
+      text-decoration: none;
+      font-size: 16px;
+      margin-top: 20px;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+<header class="header">
+  <h2>FoodMart</h2>
+  <nav class="nav">
+    <a href="/about">Главная</a>
+    <a href="/products">Товары</a>
+    <a href="/cart">Корзина</a>
+    <a href="/profile">Профиль</a>
+    <a href="/logout">Выйти</a>
+  </nav>
+</header>
+
+<h1>Добавить товар</h1>
+
+<form th:action="@{/addProduct}" method="post">
+  <input type="text" name="name" placeholder="Название товара" required>
+  <input type="text" name="description" placeholder="Описание" required>
+  <input type="number" step="0.01" name="price" placeholder="Цена" required>
+  <input type="text" name="category" placeholder="Категория" required>
+  <input type="text" name="imageUrl" placeholder="URL изображения" required>
+  <button type="submit">Добавить в корзину</button>
+</form>
+
+<footer>
+  <p>&copy; 2024 FoodMart. Все права защищены.</p>
+</footer>
+</body>
+</html>

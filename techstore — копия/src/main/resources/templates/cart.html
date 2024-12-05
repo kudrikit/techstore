@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Корзина</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #eceff1;
+      color: #333;
+    }
+
+    .header, footer {
+      width: 100%;
+      position: fixed;
+      left: 0;
+      background-color: #4CAF50;
+      color: white;
+      padding: 1rem 2rem;
+      z-index: 1000;
+    }
+
+    .header {
+      top: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    footer {
+      bottom: 0;
+      text-align: center;
+    }
+
+    .nav {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
+
+    .nav a:hover {
+      color: #d0f0d0;
+    }
+
+    .header h2 {
+      margin: 0;
+      font-size: 1.8rem;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 80px auto;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #4CAF50;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 15px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #f8f9fa;
+      color: #555;
+      text-transform: uppercase;
+    }
+
+    td img {
+      width: 50px;
+      border-radius: 4px;
+    }
+
+    .total-price {
+      text-align: right;
+      font-size: 18px;
+      margin-top: 20px;
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .btn {
+      background-color: #3498db;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s, transform 0.3s;
+    }
+
+    .btn:hover {
+      background-color: #2980b9;
+      transform: scale(1.05);
+    }
+
+    .btn-clear {
+      background-color: #e74c3c;
+    }
+
+    .btn-clear:hover {
+      background-color: #c0392b;
+      transform: scale(1.05);
+    }
+
+    .btn:active {
+      transform: scale(0.95);
+    }
+
+    .link {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      color: #3498db;
+      text-decoration: none;
+      font-size: 16px;
+    }
+
+    .link:hover {
+      text-decoration: underline;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .nav {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+      }
+
+      .header h2 {
+        font-size: 1.5rem;
+        text-align: center;
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+<header class="header">
+  <h2>FoodMart</h2>
+  <nav class="nav">
+    <a href="/about">Главная</a>
+    <a href="/products">Товары</a>
+    <a href="/cart">Корзина</a>
+    <a href="/profile">Профиль</a>
+    <a href="/logout">Выйти</a>
+  </nav>
+</header>
+
+<div class="container">
+  <h1>Корзина</h1>
+  <table>
+    <thead>
+    <tr>
+      <th>Товар</th>
+      <th>Цена</th>
+      <th>Количество</th>
+      <th>Итого</th>
+      <th>Действие</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="item : ${items}">
+      <td><img th:src="${item.product.imageUrl}" alt="Product Image"> <span th:text="${item.product.name}"></span></td>
+      <td th:text="${item.product.price} + ' тнг'"></td>
+      <td th:text="${item.quantity}"></td>
+      <td th:text="${item.product.price * item.quantity} + ' тнг'"></td>
+      <td>
+        <form th:action="@{'/cart/remove/' + ${item.product.id}}" method="post">
+          <button type="submit" class="btn btn-clear">Удалить</button>
+        </form>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <div class="total-price">
+    <strong>Итоговая сумма: </strong><span th:text="${totalPrice} + ' тнг'"></span>
+  </div>
+
+  <div class="button-container">
+    <form action="/cart/clear" method="post">
+      <button type="submit" class="btn btn-clear">Очистить корзину</button>
+    </form>
+    <form action="/order" method="get">
+      <button type="submit" class="btn">Оформить заказ</button>
+    </form>
+  </div>
+</div>
+
+<footer>
+  <p>&copy; 2024 FoodMart. Все права защищены.</p>
+</footer>
+</body>
+</html>

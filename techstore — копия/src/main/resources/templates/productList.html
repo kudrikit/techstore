@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Список Товаров</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #e9ecef;
+      color: #333;
+    }
+
+    .header, footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #4CAF50;
+      color: #ecf0f1;
+      padding: 1rem 2rem;
+      position: fixed;
+      width: 100%;
+      z-index: 1000;
+    }
+
+    .header {
+      top: 0;
+    }
+
+    footer {
+      background-color: #4CAF50;
+      color: #ecf0f1;
+      text-align: center;
+      padding: 1rem;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+
+
+    .nav {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
+
+    .nav a:hover {
+      color: #d0f0d0;
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: 1.8rem;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 120px auto 60px;
+      padding-bottom: 100px;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .actions a.button {
+      display: inline-block;
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      font-size: 16px;
+      text-decoration: none;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .actions a.button:hover {
+      background-color: #45a049;
+      transform: scale(1.05);
+    }
+
+    /* Enhanced search bar */
+    .search-container {
+      display: flex;
+      width: 100%;
+      max-width: 400px;
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .search-container input[type="text"] {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      font-size: 16px;
+      border-top-left-radius: 6px;
+      border-bottom-left-radius: 6px;
+    }
+
+    .search-container button {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+    }
+
+    .search-container button:hover {
+      background-color: #45a049;
+    }
+
+    .card-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 200px));
+      gap: 5px;
+    }
+
+    .card {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 180px;
+      padding: 10px;
+      text-align: center;
+      transition: transform 0.3s ease;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card img {
+      width: 110px;
+      height: 110px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    .card h3 {
+      font-size: 1rem;
+      color: #333;
+      margin: 10px 0;
+    }
+
+    .card .price {
+      font-size: 1rem;
+      font-weight: bold;
+      color: #4CAF50;
+      margin-bottom: 10px;
+    }
+
+    /* Consistent button design for each card */
+    .card a.button, .card button {
+      display: inline-block;
+      background-color: transparent;
+      color: #4CAF50;
+      padding: 0;
+      border: none;
+      font-size: 0.9rem;
+      font-weight: bold;
+      text-decoration: none;
+      width: 100%;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      margin-top: 5px;
+    }
+
+    .card a.button:hover, .card button:hover {
+      background-color: #4CAF50;
+      color: white;
+      padding: 8px 0;
+      border-radius: 4px;
+    }
+
+    .card .button-container {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+<header class="header">
+  <h1>FoodMart</h1>
+  <nav class="nav">
+    <a href="/about">Главная</a>
+    <a href="/products">Товары</a>
+    <a href="/cart">Корзина</a>
+    <a href="/profile">Профиль</a>
+    <a href="/logout">Выйти</a>
+  </nav>
+</header>
+
+<div class="container">
+  <div class="actions">
+    <!-- Видно только для ADMIN -->
+    <div sec:authorize="hasRole('ROLE_ADMIN')">
+      <a href="/addProduct" class="button">Добавить товар</a>
+    </div>
+
+    <!-- Search bar with enhanced styling -->
+    <form action="/search" method="get" class="search-container">
+      <input type="text" name="keyword" placeholder="Поиск товаров..." value="">
+      <button type="submit">Поиск</button>
+    </form>
+  </div>
+
+  <!-- Список товаров -->
+  <div class="card-container">
+    <div class="card" th:each="product : ${products}">
+      <img th:src="${product.imageUrl}" alt="Product Image">
+      <h3 th:text="${product.name}"></h3>
+      <p class="price" th:text="${product.price} + ' тнг'"></p>
+
+      <div class="button-container">
+        <a class="button" th:href="@{'/products/details/' + ${product.id}}">Подробнее</a>
+
+        <!-- Видно только для ADMIN -->
+        <div sec:authorize="hasRole('ROLE_ADMIN')">
+          <a class="button" th:href="@{'/editProduct/' + ${product.id}}">Обновить</a>
+          <form th:action="@{'/deleteProduct/' + ${product.id}}" method="post" style="display:inline;">
+            <button type="submit" style="color: #e74c3c;">Удалить</button>
+          </form>
+        </div>
+
+        <!-- Видно только для USER -->
+        <div sec:authorize="hasRole('ROLE_USER')">
+          <form th:action="@{'/cart/add/' + ${product.id}}" method="post">
+            <button type="submit">Добавить в корзину</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>&copy; 2024 FoodMart. Все права защищены.</p>
+</footer>
+</body>
+</html>

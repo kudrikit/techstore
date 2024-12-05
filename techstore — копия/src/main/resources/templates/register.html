@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Регистрация</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: url('https://cdn.sortiraparis.com/images/80/102118/886637-la-ferme-de-viltain-la-cueillette-de-viltain-image00010.jpg') no-repeat center center fixed;
+      background-size: cover;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* Semi-transparent overlay */
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(10px);
+      z-index: 1;
+    }
+
+    .register-container {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 400px;
+      margin: auto;
+      padding: 20px;
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-size: 14px;
+      color: #333;
+      margin-bottom: 5px;
+      display: block;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    input[type="email"] {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 20px;
+      color: #333;
+    }
+
+    .footer a {
+      color: #333;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer a:hover {
+      color: #45a049;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Background overlay with blur effect -->
+<div class="overlay"></div>
+
+<!-- Registration Form Container -->
+<div class="register-container">
+  <h2>Регистрация</h2>
+  <form th:action="@{/register}" method="post">
+    <label for="username">Имя пользователя</label>
+    <input type="text" id="username" name="username" required/>
+
+    <label for="password">Пароль</label>
+    <input type="password" id="password" name="password" required/>
+
+    <label for="email">Электронная почта</label>
+    <input type="email" id="email" name="email" required/>
+
+    <button type="submit">Зарегистрироваться</button>
+  </form>
+  <div class="footer">
+    <p>Уже есть аккаунт? <a href="/login">Войдите здесь</a></p>
+  </div>
+</div>
+
+</body>
+</html>

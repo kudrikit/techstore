@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Детали Товара</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: url('https://cdn.sortiraparis.com/images/80/102118/886637-la-ferme-de-viltain-la-cueillette-de-viltain-image00010.jpg') no-repeat center center fixed;
+      background-size: cover;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    /* Semi-transparent overlay */
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(10px);
+      z-index: 1;
+    }
+
+    .header, footer {
+      width: 100%;
+      background-color: #4CAF50;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: fixed;
+      z-index: 1000;
+    }
+
+    .header {
+      top: 0;
+      justify-content: space-between;
+    }
+
+    footer {
+      bottom: 0;
+      text-align: center;
+    }
+
+    .nav {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
+
+    .nav a:hover {
+      color: #d0f0d0;
+    }
+
+    .header h2 {
+      margin: 0;
+      font-size: 1.8rem;
+    }
+
+    .container {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+      width: 100%;
+      background-color: #ffffff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      margin: 140px 0 80px; /* Spacing for header and footer */
+    }
+
+    h1 {
+      color: #4CAF50;
+      font-size: 2rem;
+      margin-bottom: 30px;
+      font-weight: 700;
+    }
+
+    .product-details {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .product-details img {
+      max-width: 80%;
+      height: auto;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+
+    .product-details p {
+      font-size: 1rem;
+      color: #555;
+      line-height: 1.6;
+      margin: 8px 0;
+    }
+
+    .product-details p strong {
+      color: #333;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      margin-top: 20px;
+    }
+
+    button:hover {
+      background-color: #45a049;
+      transform: scale(1.05);
+    }
+
+    button:active {
+      transform: scale(0.98);
+    }
+
+    .back-links {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 30px;
+      width: 100%;
+    }
+
+    a {
+      color: #4CAF50;
+      font-weight: 500;
+      text-decoration: none;
+      font-size: 16px;
+      transition: color 0.3s ease;
+    }
+
+    a:hover {
+      color: #388E3C;
+      text-decoration: underline;
+    }
+
+    @media (min-width: 600px) {
+      .product-details {
+        flex-direction: row;
+        text-align: left;
+      }
+
+      .product-details img {
+        max-width: 40%;
+      }
+
+      .product-info {
+        max-width: 55%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Background overlay with blur effect -->
+<div class="overlay"></div>
+
+<header class="header">
+  <h2>FoodMart</h2>
+  <nav class="nav">
+    <a href="/about">Главная</a>
+    <a href="/products">Товары</a>
+    <a href="/cart">Корзина</a>
+    <a href="/profile">Профиль</a>
+    <a href="/logout">Выйти</a>
+  </nav>
+</header>
+
+<div class="container">
+  <h1>Детали Товара</h1>
+  <div class="product-details">
+    <img th:src="${product.imageUrl}" alt="Product image">
+    <div class="product-info">
+      <p><strong>Название:</strong> <span th:text="${product.name}"></span></p>
+      <p><strong>Описание:</strong> <span th:text="${product.description}"></span></p>
+      <p><strong>Цена:</strong> <span th:text="${product.price}"></span> тнг</p>
+      <p><strong>Категория:</strong> <span th:text="${product.category}"></span></p>
+      <form th:action="@{'/cart/add/' + ${product.id}}" method="post">
+        <button type="submit">Добавить в корзину</button>
+      </form>
+    </div>
+  </div>
+  <div class="back-links">
+    <a href="/products">&#8592; Вернуться на главную</a>
+    <a href="/cart">Перейти в корзину &#8594;</a>
+  </div>
+</div>
+
+<footer>
+  <p>&copy; 2024 FoodMart. Все права защищены.</p>
+</footer>
+
+</body>
+</html>

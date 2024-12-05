@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Список пользователей</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f7fb;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+
+    .header, footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #4CAF50;
+      color: #ecf0f1;
+      padding: 1rem 2rem;
+      position: fixed;
+      width: 100%;
+      z-index: 1000;
+    }
+
+    .header {
+      top: 0;
+    }
+
+    footer {
+      bottom: 0;
+      text-align: center;
+    }
+
+    .nav {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
+
+    .nav a:hover {
+      color: #d0f0d0;
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: 1.8rem;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+      margin: 120px 0 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0 60px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: center;
+      border: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    tr:hover {
+      background-color: #f1f1f1;
+    }
+
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .delete-btn {
+      background-color: #dc3545;
+    }
+
+    .delete-btn:hover {
+      background-color: #c82333;
+    }
+
+    select {
+      padding: 8px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    form {
+      display: inline-block;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+
+<header class="header">
+  <h1>FoodMart</h1>
+  <nav class="nav">
+    <a href="/about">Главная</a>
+    <a href="/products">Товары</a>
+    <a href="/cart">Корзина</a>
+    <a href="/profile">Профиль</a>
+    <a href="/logout">Выйти</a>
+  </nav>
+</header>
+
+<h1>Список пользователей</h1>
+
+<div style="padding: 20px;">
+  <table>
+    <thead>
+    <tr>
+      <th>Имя пользователя</th>
+      <th>Email</th>
+      <th>Роль</th>
+      <th>Действие</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${users}">
+      <td th:text="${user.username}">Имя пользователя</td>
+      <td th:text="${user.email}">Email</td>
+      <td th:text="${user.role}">Роль</td>
+      <td class="action-buttons">
+        <!-- Форма изменения роли -->
+        <form th:action="@{/admin/changeRole}" method="post">
+          <input type="hidden" name="userId" th:value="${user.id}" />
+          <select name="newRole">
+            <option value="USER" th:selected="${user.role == 'USER'}">USER</option>
+            <option value="ADMIN" th:selected="${user.role == 'ADMIN'}">ADMIN</option>
+          </select>
+          <button type="submit">Изменить роль</button>
+        </form>
+
+        <!-- Форма для удаления пользователя -->
+        <form th:action="@{/admin/deleteUser}" method="post" onsubmit="return confirm('Вы уверены, что хотите удалить этого пользователя?');">
+          <input type="hidden" name="userId" th:value="${user.id}" />
+          <button type="submit" class="delete-btn">Удалить</button>
+        </form>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<footer>
+  <p>&copy; 2024 FoodMart. Все права защищены.</p>
+</footer>
+
+</body>
+</html>
